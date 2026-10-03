@@ -1,0 +1,20 @@
+"use client";
+
+import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
+
+/** Thin 2px accent line at the very top showing scroll progress. */
+export function ScrollProgress() {
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 28, mass: 0.4 });
+
+  if (reduce) return null;
+
+  return (
+    <motion.div
+      aria-hidden
+      className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-blue-600 dark:bg-blue-400"
+      style={{ scaleX }}
+    />
+  );
+}

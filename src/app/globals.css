@@ -4,20 +4,21 @@
 
 :root {
   --background: 255 255 255;
-  --foreground: 9 9 11;
-  --muted: 113 113 122;
+  --foreground: 30 41 59;
+  --muted: 100 116 139;
   --accent: 37 99 235;
 }
 
 .dark {
-  --background: 9 9 11;
-  --foreground: 250 250 250;
-  --muted: 161 161 170;
+  --background: 15 23 42;
+  --foreground: 241 245 249;
+  --muted: 148 163 184;
   --accent: 96 165 250;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -28,4 +29,103 @@ body {
 
 ::selection {
   background: rgb(var(--accent) / 0.25);
+}
+
+@layer components {
+  /* Buttons & links: 2px lift on hover, slight press on click, ~150ms */
+  .btn-lift {
+    @apply transition-all duration-150 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] will-change-transform;
+  }
+
+  /* Sliding underline for text links */
+  .link-underline {
+    @apply relative;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1.5px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    opacity: 0.7;
+    transition: transform 150ms ease-out;
+  }
+  .link-underline:hover::after,
+  .link-underline[data-active="true"]::after {
+    transform: scaleX(1);
+  }
+
+  /* Cursor-following border/glow for project cards (opacity only) */
+  .spotlight-card {
+    position: relative;
+  }
+  .spotlight-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: var(--spot-opacity, 0);
+    transition: opacity 200ms ease-out;
+    padding: 1px;
+    background: radial-gradient(
+      220px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(var(--accent) / 0.45),
+      transparent 70%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  .spotlight-card .tag-row {
+    transition: opacity 150ms ease-out;
+    opacity: 0.85;
+  }
+  .spotlight-card:hover .tag-row {
+    opacity: 1;
+  }
+
+  /* Terminal caret */
+  @keyframes caret-blink {
+    0%, 45% { opacity: 1; }
+    50%, 95% { opacity: 0; }
+  }
+  .terminal-caret {
+    animation: caret-blink 1.1s steps(1) infinite;
+  }
+}
+
+/* Generous, consistent vertical rhythm: 96–128px between sections */
+.section-pad {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+@media (min-width: 640px) {
+  .section-pad {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .terminal-caret {
+    animation: none;
+  }
+  .spotlight-card::before {
+    display: none;
+  }
 }

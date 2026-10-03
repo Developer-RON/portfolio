@@ -21,9 +21,9 @@ function SectionHeading({
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
+      <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
       {description ? (
-        <p className="mt-4 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">{description}</p>
+        <p className="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-400">{description}</p>
       ) : null}
     </div>
   );

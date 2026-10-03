@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Send, Github, Linkedin, Mail, CheckCircle2, AlertTriangle, Copy, Loader2 } from "lucide-react";
+import { Send, Github, Linkedin, Mail, Check, CheckCircle2, AlertTriangle, Copy, Loader2 } from "lucide-react";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { siteConfig } from "@/config/site";
 
@@ -35,7 +35,7 @@ export function Contact() {
     try {
       await navigator.clipboard.writeText(contactEmail);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      window.setTimeout(() => setCopied(false), 2000);
     } catch {
       openMailClient();
     }
@@ -68,41 +68,48 @@ export function Contact() {
     }
   }
 
-  const inputCls = "h-10 w-full rounded-lg border border-zinc-200 bg-transparent px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-blue-500 dark:border-zinc-700";
+  const inputCls = "h-10 w-full rounded-lg border border-slate-200 bg-transparent px-3 text-sm outline-none placeholder:text-slate-400 focus:border-blue-500 dark:border-slate-700";
 
   return (
-    <section id="contact" className="py-16 sm:py-24">
+    <section id="contact" className="section-pad">
       <Container>
         <SectionHeading eyebrow="Contact" title="Let's talk" description="Email is fastest. I reply within a couple of days." />
         <div className="mx-auto mt-10 grid max-w-4xl gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="space-y-3">
-            <div className="flex items-center gap-4 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
+            <div className="flex items-center gap-4 rounded-xl border border-slate-200 p-4 dark:border-slate-700/60">
               <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"><Mail size={18} /></span>
-              <span className="min-w-0 flex-1"><span className="block text-sm font-medium">Email</span><span className="block truncate text-sm text-zinc-500">{contactEmail}</span></span>
-              <button type="button" onClick={copyEmail} className="inline-flex h-8 items-center gap-1.5 rounded-md border border-zinc-200 px-2.5 text-xs font-medium hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800"><Copy size={13} /> {copied ? "Copied!" : "Copy"}</button>
+              <span className="min-w-0 flex-1"><span className="block text-sm font-medium">Email</span><span className="block truncate text-sm text-slate-500">{contactEmail}</span></span>
+              <button
+                type="button"
+                onClick={copyEmail}
+                aria-live="polite"
+                className="btn-lift inline-flex h-8 min-w-[5.5rem] items-center justify-center gap-1.5 rounded-md border border-slate-200 px-2.5 text-xs font-medium hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
+              >
+                {copied ? (<><Check size={13} /> Copied ✓</>) : (<><Copy size={13} /> Copy</>)}
+              </button>
             </div>
-            <a href={`mailto:${contactEmail}`} className="flex items-center gap-4 rounded-xl border border-zinc-200 p-4 hover:shadow-md dark:border-zinc-800">
+            <a href={`mailto:${contactEmail}`} className="btn-lift flex items-center gap-4 rounded-xl border border-slate-200 p-4 hover:shadow-md dark:border-slate-700/60">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"><Send size={18} /></span>
-              <span><span className="block text-sm font-medium">Email me directly</span><span className="block text-sm text-zinc-500">Opens your mail app</span></span>
+              <span><span className="block text-sm font-medium">Email me directly</span><span className="block text-sm text-slate-500">Opens your mail app</span></span>
             </a>
-            <a href={siteConfig.links.github} target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-xl border border-zinc-200 p-4 hover:shadow-md dark:border-zinc-800">
+            <a href={siteConfig.links.github} target="_blank" rel="noreferrer" className="btn-lift flex items-center gap-4 rounded-xl border border-slate-200 p-4 hover:shadow-md dark:border-slate-700/60">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"><Github size={18} /></span>
-              <span><span className="block text-sm font-medium">GitHub</span><span className="block text-sm text-zinc-500">View code</span></span>
+              <span><span className="block text-sm font-medium">GitHub</span><span className="block text-sm text-slate-500">View code</span></span>
             </a>
             {hasLinkedIn ? (
-              <a href={siteConfig.links.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-xl border border-zinc-200 p-4 hover:shadow-md dark:border-zinc-800">
+              <a href={siteConfig.links.linkedin} target="_blank" rel="noreferrer" className="btn-lift flex items-center gap-4 rounded-xl border border-slate-200 p-4 hover:shadow-md dark:border-slate-700/60">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"><Linkedin size={18} /></span>
-                <span><span className="block text-sm font-medium">LinkedIn</span><span className="block text-sm text-zinc-500">Connect</span></span>
+                <span><span className="block text-sm font-medium">LinkedIn</span><span className="block text-sm text-slate-500">Connect</span></span>
               </a>
             ) : null}
           </div>
-          <form onSubmit={onSubmit} noValidate className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+          <form onSubmit={onSubmit} noValidate className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700/60 dark:bg-slate-900">
             {status === "sent" ? (
               <div className="py-10 text-center">
                 <CheckCircle2 className="mx-auto text-green-500" size={32} />
                 <p className="mt-3 font-semibold">Message sent — thank you!</p>
-                <p className="mx-auto mt-2 max-w-xs text-sm text-zinc-500">It&apos;s on its way to {contactEmail}. I&apos;ll reply within a couple of days.</p>
-                <button type="button" onClick={() => { setStatus("idle"); setForm({ name: "", email: "", message: "" }); }} className="mt-4 text-sm text-blue-600 hover:underline">Send another</button>
+                <p className="mx-auto mt-2 max-w-xs text-sm text-slate-500">It&apos;s on its way to {contactEmail}. I&apos;ll reply within a couple of days.</p>
+                <button type="button" onClick={() => { setStatus("idle"); setForm({ name: "", email: "", message: "" }); }} className="link-underline mt-4 text-sm text-blue-600">Send another</button>
               </div>
             ) : (
               <div className="space-y-4">
@@ -118,7 +125,7 @@ export function Contact() {
                 </div>
                 <div>
                   <label htmlFor="c-msg" className="mb-1.5 block text-sm font-medium">Message</label>
-                  <textarea id="c-msg" name="message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Hi Ronney — let's talk…" rows={5} className="w-full resize-y rounded-lg border border-zinc-200 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-zinc-400 focus:border-blue-500 dark:border-zinc-700" />
+                  <textarea id="c-msg" name="message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Hi Ronney — let's talk…" rows={5} className="w-full resize-y rounded-lg border border-slate-200 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-slate-400 focus:border-blue-500 dark:border-slate-700" />
                   {errors.message ? <p role="alert" className="mt-1 text-xs text-red-500">{errors.message}</p> : null}
                 </div>
                 {status === "error" ? (
@@ -127,8 +134,8 @@ export function Contact() {
                     <span>{serverError} <button type="button" onClick={openMailClient} className="font-semibold underline">Open email app instead</button></span>
                   </div>
                 ) : null}
-                <button type="submit" disabled={status === "sending"} className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-blue-600 text-sm font-medium text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-70">{status === "sending" ? (<><Loader2 size={15} className="animate-spin" /> Sending…</>) : (<><Send size={15} /> Send message</>)}</button>
-                <p className="text-center text-xs text-zinc-400">Sends directly to {contactEmail}. No account needed.</p>
+                <button type="submit" disabled={status === "sending"} className="btn-lift inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-blue-600 text-sm font-medium text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-70">{status === "sending" ? (<><Loader2 size={15} className="animate-spin" /> Sending…</>) : (<><Send size={15} /> Send message</>)}</button>
+                <p className="text-center text-xs text-slate-400">Sends directly to {contactEmail}. No account needed.</p>
               </div>
             )}
           </form>

@@ -1,9 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll } from "framer-motion";
 import { GitBranch, ShieldCheck, Zap, Boxes } from "lucide-react";
 import { Container, SectionHeading } from "@/components/ui/section";
 import { Card, CardContent } from "@/components/ui/card";
+import { Reveal } from "@/components/motion/reveal";
 
 const principles = [
   {
@@ -28,11 +30,63 @@ const principles = [
   },
 ];
 
+const flow = [
+  ["01", "Understand", "Scope the problem and define done."],
+  ["02", "Build", "Small typed increments with reviews."],
+  ["03", "Verify", "Unit + integration tests, manual QA."],
+  ["04", "Ship", "Deploy, monitor, iterate on feedback."],
+] as const;
+
+function DeliveryFlow() {
+  const ref = useRef<HTMLOListElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.85", "start 0.45"],
+  });
+
+  return (
+    <div className="relative mt-8 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-700/60 dark:bg-slate-900">
+      <div className="border-b border-slate-200 px-5 py-3 font-mono text-xs text-slate-500 dark:border-slate-700/60">
+        typical delivery flow
+      </div>
+      <ol ref={ref} className="relative grid gap-0 text-sm sm:grid-cols-4">
+        {/* Connecting line draws as the section scrolls into view (transform only) */}
+        <span
+          aria-hidden
+          className="absolute left-5 right-5 top-9 hidden h-px bg-slate-200 dark:bg-slate-700/60 sm:block"
+        />
+        {reduce ? null : (
+          <motion.span
+            aria-hidden
+            className="absolute left-5 right-5 top-9 hidden h-px origin-left bg-blue-600 dark:bg-blue-400 sm:block"
+            style={{ scaleX: scrollYProgress }}
+          />
+        )}
+        {flow.map(([n, title, text]) => (
+          <li
+            key={n}
+            className="relative border-slate-200 p-5 dark:border-slate-700/60 sm:border-l sm:first:border-l-0"
+          >
+            <span
+              aria-hidden
+              className="relative z-10 mb-3 hidden h-2.5 w-2.5 rounded-full bg-blue-600 ring-4 ring-blue-100 dark:bg-blue-400 dark:ring-blue-950 sm:block"
+            />
+            <p className="font-mono text-xs text-blue-600 dark:text-blue-400">{n}</p>
+            <p className="mt-1 font-semibold">{title}</p>
+            <p className="mt-1 min-h-[2.5rem] text-slate-600 dark:text-slate-400">{text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export function Engineering() {
   return (
     <section
       id="engineering"
-      className="border-y border-zinc-200 bg-zinc-50/60 py-16 dark:border-zinc-800 dark:bg-zinc-900/40 sm:py-20"
+      className="section-pad border-y border-slate-200 bg-slate-50/60 dark:border-slate-700/60 dark:bg-slate-800/40"
     >
       <Container>
         <SectionHeading
@@ -40,49 +94,25 @@ export function Engineering() {
           title="Engineering approach"
           description="How I approach building software on a team: small iterations, clear contracts, and decisions you can review."
         />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {principles.map((p, i) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: i * 0.07 }}
-            >
-              <Card className="h-full p-5">
+        <Reveal className="mt-10">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {principles.map((p) => (
+              <Card key={p.title} className="h-full border-slate-200 p-5 dark:border-slate-700/60">
                 <CardContent className="p-0">
                   <p.icon size={20} className="text-blue-600 dark:text-blue-400" />
-                  <h3 className="mt-3 font-semibold">{p.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{p.text}</p>
+                  <h3 className="mt-3 font-display font-semibold tracking-tight">{p.title}</h3>
+                  <p className="mt-2 min-h-[3.75rem] text-sm leading-relaxed text-slate-600 dark:text-slate-400">{p.text}</p>
                 </CardContent>
               </Card>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="mt-8 overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-          <div className="border-b border-zinc-200 px-5 py-3 font-mono text-xs text-zinc-500 dark:border-zinc-800">
-            typical delivery flow
-          </div>
-          <ol className="grid gap-0 text-sm sm:grid-cols-4">
-            {[
-              ["01", "Understand", "Scope the problem and define done."],
-              ["02", "Build", "Small typed increments with reviews."],
-              ["03", "Verify", "Unit + integration tests, manual QA."],
-              ["04", "Ship", "Deploy, monitor, iterate on feedback."],
-            ].map(([n, title, text], idx) => (
-              <li
-                key={n}
-                className="border-zinc-200 p-5 dark:border-zinc-800 sm:border-l sm:first:border-l-0"
-              >
-                <p className="font-mono text-xs text-blue-600 dark:text-blue-400">{n}</p>
-                <p className="mt-1 font-semibold">{title}</p>
-                <p className="mt-1 text-zinc-600 dark:text-zinc-400">{text}</p>
-              </li>
             ))}
-          </ol>
-        </div>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <DeliveryFlow />
+        </Reveal>
       </Container>
     </section>
   );
 }
+
