@@ -2,6 +2,7 @@ import { Github, Linkedin, Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export function SiteFooter() {
+  const hasLinkedIn = Boolean(siteConfig.links.linkedin);
   return (
     <footer className="border-t border-zinc-200 py-10 dark:border-zinc-800">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-6 px-4 sm:flex-row sm:px-6 lg:px-8">
@@ -21,15 +22,17 @@ export function SiteFooter() {
           >
             <Github size={16} />
           </a>
-          <a
-            href={siteConfig.links.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:hover:bg-zinc-800"
-          >
-            <Linkedin size={16} />
-          </a>
+          {hasLinkedIn ? (
+            <a
+              href={siteConfig.links.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:hover:bg-zinc-800"
+            >
+              <Linkedin size={16} />
+            </a>
+          ) : null}
           <a
             href={`mailto:${siteConfig.links.email}`}
             aria-label="Email"

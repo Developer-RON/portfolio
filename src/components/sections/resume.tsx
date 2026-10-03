@@ -39,7 +39,7 @@ export function Resume() {
             </div>
             <div className="space-y-3 p-5 text-sm">
               <div>
-                <p className="font-semibold">[YOUR NAME]</p>
+                <p className="font-semibold">Ronney Nelson</p>
                 <p className="text-zinc-500">Junior Software Developer</p>
               </div>
               <div className="border-t border-zinc-100 pt-3 dark:border-zinc-800">

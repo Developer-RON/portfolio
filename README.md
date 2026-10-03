@@ -1,4 +1,4 @@
-# Portfolio — Junior Software Developer
+# Portfolio — Ronney Nelson
 
 A premium, minimal developer portfolio built with **Next.js 14, TypeScript, Tailwind CSS, Framer Motion, and Lucide icons**.
 
@@ -18,8 +18,10 @@ Open [http://localhost:3000](http://localhost:3000).
 - `src/data/capabilities.ts` — capability cards and journey timeline
 - `public/resume.pdf` — drop your real resume PDF here (linked from Resume section)
 
-Placeholders like `[YOUR NAME]`, `[YOUR EMAIL]`, `[YOUR GITHUB]` mark spots to personalize.
-No fake employment, metrics, or testimonials are included by design.
+Contact form sends directly to `ronneynelsonofficial@gmail.com` via FormSubmit
+AJAX (no backend/keys needed). First submission triggers a one-time
+activation email to that inbox — click Activate once, then all messages
+arrive automatically.
 
 ## Scripts
 
