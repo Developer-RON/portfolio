@@ -33,4 +33,4 @@ No fake employment, metrics, or testimonials are included by design.
 
 ## Deploy
 
-Optimized for Vercel. Set `NEXT_PUBLIC_SITE_URL` to your production domain.
+Optimized for Vercel. Set `SITE_URL` (server-only, no `NEXT_PUBLIC_` prefix) to your production domain.

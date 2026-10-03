@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
-import { siteConfig } from "@/config/site";
+import { getSiteUrl } from "@/config/server";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const base = getSiteUrl();
   return [
-    { url: siteConfig.url, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
+    { url: base, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
     ...["fullstack-task-platform", "api-service-starter"].map((slug) => ({
-      url: `${siteConfig.url}/projects/${slug}`,
+      url: `${base}/projects/${slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,

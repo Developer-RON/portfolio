@@ -3,7 +3,6 @@ export const siteConfig = {
   title: "[YOUR NAME] | Junior Software Developer",
   description:
     "Junior full-stack software developer building reliable, user-focused web applications with modern TypeScript, React, Node.js, databases, and cloud services.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   links: {
     github: "[YOUR GITHUB]",
     linkedin: "[YOUR LINKEDIN]",
