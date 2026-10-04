@@ -9,8 +9,24 @@ export interface Project {
   githubUrl: string;
   demoUrl: string;
   caseStudyUrl?: string;
-  featured: boolean;
-  status: "In progress" | "Completed" | "Placeholder";
+  /**
+   * Drives the split between the "Shipped" and "In progress" sections.
+   * Set this to reflect reality — a recruiter's first question is "did this
+   * actually finish?", and it is the one question a placeholder answers badly.
+   */
+  status: "completed" | "in-progress";
+  /**
+   * Orthogonal to `status` on purpose: a project can be genuinely in progress
+   * AND still be a placeholder entry. Keeping these separate means moving a
+   * project between sections never silently drops the "not real yet" warning.
+   */
+  isPlaceholder: boolean;
+  /** In-progress only — shipped so far. */
+  doneSoFar?: string[];
+  /** In-progress only — what is still to come. */
+  nextUp?: string[];
+  /** Shipped only — when it went live. */
+  shippedOn?: string;
 }
 
 // Edit this file to add real projects — UI reads from here, no layout changes needed.
@@ -40,8 +56,8 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/Developer-RON/",
     demoUrl: "#projects",
-    featured: true,
-    status: "Placeholder",
+    status: "completed",
+    isPlaceholder: true,
   },
   {
     slug: "api-service-starter",
@@ -63,8 +79,8 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/Developer-RON/",
     demoUrl: "#projects",
-    featured: true,
-    status: "Placeholder",
+    status: "completed",
+    isPlaceholder: true,
   },
   {
     slug: "realtime-collaboration-notes",
@@ -86,8 +102,17 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/Developer-RON/",
     demoUrl: "#projects",
-    featured: true,
-    status: "Placeholder",
+    status: "in-progress",
+    isPlaceholder: true,
+    doneSoFar: [
+      "Schema and migrations designed with indexes on foreign keys",
+      "Optimistic UI with rollback wired to the sync layer",
+      "Presence and reconnect-replay logic unit tested",
+    ],
+    nextUp: [
+      "Multi-user conflict resolution under concurrent edits",
+      "Load testing with a realistic dataset before public demo",
+    ],
   },
   {
     slug: "ai-assisted-support-inbox",
@@ -109,7 +134,16 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/Developer-RON/",
     demoUrl: "#projects",
-    featured: true,
-    status: "Placeholder",
+    status: "in-progress",
+    isPlaceholder: true,
+    doneSoFar: [
+      "Server-side LLM calls with input limits and caching",
+      "Human review step before any reply is sent",
+      "Prompt templates stored as versioned configuration",
+    ],
+    nextUp: [
+      "Evaluation set so accuracy is measured, not assumed",
+      "Cost monitoring per tenant before any wider rollout",
+    ],
   },
 ];

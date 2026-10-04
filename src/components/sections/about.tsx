@@ -1,6 +1,7 @@
 import { Container, SectionHeading } from "@/components/ui/section";
-import { timeline } from "@/data/capabilities";
+import { timeline, capabilities } from "@/data/capabilities";
 import { GraduationCap, MapPin } from "lucide-react";
+import Link from "next/link";
 
 export function About() {
   return (
@@ -29,9 +30,15 @@ export function About() {
                 well-built application than list a dozen buzzwords.
               </p>
               <p className="mt-3">
-                Currently I&apos;m deepening my skills in TypeScript, Next.js, Node.js APIs,
-                PostgreSQL, and cloud deployments — and learning how professional teams review,
-                test, and ship code.
+                Day to day I write code, read a lot of other people&apos;s code, and write down
+                what I learn. What I&apos;m focused on right now is in{" "}
+                <Link
+                  href="#currently"
+                  className="link-underline font-medium text-blue-600 dark:text-blue-400"
+                >
+                  Currently learning
+                </Link>
+                .
               </p>
             </div>
           </div>
@@ -52,21 +59,55 @@ export function About() {
                 </li>
               ))}
             </ol>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              {[
-                ["Languages", "TypeScript, JavaScript, SQL, HTML/CSS"],
-                ["Frontend", "React, Next.js, Tailwind CSS"],
-                ["Backend", "Node.js, Express, REST, JWT"],
-                ["Data & Ops", "PostgreSQL, Prisma, Redis, Docker"],
-              ].map(([label, value]) => (
-                <div
-                  key={label}
-                  className="rounded-lg border border-slate-200 p-4 dark:border-slate-700/60"
+            {/*
+              Item 3 — capability groups, not a flat skill list.
+              A generic comma-separated grid ("Languages: TS, JS, SQL, HTML/CSS")
+              reads as keyword stuffing and proves nothing. Grouping by capability
+              shows what you can actually DO and where the tools sit in it.
+              Single source of truth remains src/data/capabilities.ts.
+            */}
+            <div className="mt-8">
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+                  Capability groups
+                </h3>
+                <Link
+                  href="#capabilities"
+                  className="link-underline text-xs font-medium text-blue-600 dark:text-blue-400"
                 >
-                  <p className="font-mono text-xs uppercase tracking-wider text-slate-500">{label}</p>
-                  <p className="mt-1 text-sm font-medium">{value}</p>
-                </div>
-              ))}
+                  Full breakdown
+                </Link>
+              </div>
+              <ul className="mt-4 space-y-3">
+                {capabilities.slice(0, 4).map((cap) => (
+                  <li
+                    key={cap.title}
+                    className="flex flex-col gap-1.5 rounded-lg border border-slate-200 p-4 dark:border-slate-700/60"
+                  >
+                    <p className="font-medium">{cap.title}</p>
+                    <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                      {cap.description}
+                    </p>
+                    <div className="tag-row mt-1 flex flex-wrap gap-1.5">
+                      {cap.skills.map((s) => (
+                        <span
+                          key={s}
+                          className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 font-mono text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
+                No skill percentages — a number I invented would tell you nothing you can
+                verify.{" "}
+                <span className="font-medium text-slate-700 dark:text-slate-300">
+                  Check the repo instead.
+                </span>
+              </p>
             </div>
           </div>
         </div>

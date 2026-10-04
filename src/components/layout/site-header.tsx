@@ -43,7 +43,8 @@ export function SiteHeader() {
           <span aria-hidden className="terminal-caret ml-0.5 inline-block h-3.5 w-[7px] translate-y-[2px] bg-blue-600/80 dark:bg-blue-400/80" />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+        {/* 9 nav items need xl+ (1280px); lg and below use the hamburger menu. */}
+        <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Primary">
           {siteConfig.nav.map((item) => {
             const id = item.href.replace("#", "");
             const isActive = active === id;
@@ -66,7 +67,7 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 xl:flex">
           <button
             onClick={toggle}
             className="btn-lift inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-200 hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
@@ -91,7 +92,7 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <button
             onClick={toggle}
             className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-200 dark:border-slate-700"
@@ -112,7 +113,7 @@ export function SiteHeader() {
 
       {open ? (
         <nav
-          className="border-t border-slate-200 bg-white px-4 py-4 dark:border-slate-700/60 dark:bg-slate-900 md:hidden"
+          className="border-t border-slate-200 bg-white px-4 py-4 dark:border-slate-700/60 dark:bg-slate-900 xl:hidden"
           aria-label="Mobile"
         >
           <div className="flex flex-col gap-1">

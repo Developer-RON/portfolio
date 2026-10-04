@@ -22,8 +22,11 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   return (
     <div className="py-12 sm:py-16">
       <Container>
-        <Link href="/#projects" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 dark:hover:text-white">
-          <ArrowLeft size={15} /> Back to projects
+        <Link
+          href={project.status === "completed" ? "/#projects" : "/#ongoing"}
+          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 dark:hover:text-white"
+        >
+          <ArrowLeft size={15} /> Back to {project.status === "completed" ? "shipped" : "ongoing"} projects
         </Link>
         <p className="mt-6 font-mono text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">Case study</p>
         <h1 className="mt-2 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl">{project.title}</h1>

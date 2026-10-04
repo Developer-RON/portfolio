@@ -1,3 +1,25 @@
+/**
+ * Hero proof points — concrete and verifiable, never percentage bars.
+ * Each claim is backed by something a reviewer can open (repo, test, deployment).
+ */
+export const heroProof = [
+  {
+    label: "Ships",
+    value: "Deployed, not just demoed",
+    detail: "Every project runs somewhere you can click.",
+  },
+  {
+    label: "Verifies",
+    value: "Unit + integration + E2E",
+    detail: "Vitest and Playwright wired into CI.",
+  },
+  {
+    label: "Documents",
+    value: "OpenAPI + written rationale",
+    detail: "Decisions explained, not just shipped.",
+  },
+] as const;
+
 export const siteConfig = {
   name: "Ronney Nelson",
   title: "Ronney Nelson | Junior Software Developer",
@@ -13,7 +35,10 @@ export const siteConfig = {
   nav: [
     { label: "Home", href: "#home" },
     { label: "Projects", href: "#projects" },
+    { label: "Ongoing", href: "#ongoing" },
     { label: "Engineering", href: "#engineering" },
+    { label: "Writing", href: "#writing" },
+    { label: "Currently", href: "#currently" },
     { label: "About", href: "#about" },
     { label: "Resume", href: "#resume" },
     { label: "Contact", href: "#contact" },

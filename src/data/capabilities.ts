@@ -37,6 +37,69 @@ export const capabilities: Capability[] = [
   },
 ];
 
+export interface FocusItem {
+  topic: string;
+  detail: string;
+  stage: "Deepening" | "Building with" | "Exploring";
+}
+
+export interface LookingForItem {
+  title: string;
+  detail: string;
+}
+
+/** Item 5 — signals direction. Edit freely; the section reads from here. */
+export const currentlyLearning: FocusItem[] = [
+  {
+    topic: "System design & data modelling",
+    detail:
+      "Normalising schemas, choosing indexes, and reasoning about trade-offs before writing queries.",
+    stage: "Deepening",
+  },
+  {
+    topic: "TypeScript at the boundaries",
+    detail:
+      "Runtime validation with Zod, discriminated unions, and typed contracts shared between client and API.",
+    stage: "Building with",
+  },
+  {
+    topic: "Accessibility & frontend performance",
+    detail:
+      "Keyboard and screen-reader behaviour, plus profiling render cost in React Server Components.",
+    stage: "Exploring",
+  },
+  {
+    topic: "Team workflows",
+    detail:
+      "Code review culture, CI gates, and how teams agree on trade-offs before shipping.",
+    stage: "Deepening",
+  },
+];
+
+/** Item 5 — career intent. Keeps recruiters from having to guess what you want. */
+export const lookingFor: LookingForItem[] = [
+  {
+    title: "A team that ships real software",
+    detail:
+      "Product work with real users and real constraints, not exercises — somewhere I can own a feature end to end.",
+  },
+  {
+    title: "Code review I can learn from",
+    detail:
+      "Reviewers who explain why, not just what. I fix the issue and the class of issue behind it.",
+  },
+  {
+    title: "Mentorship with a track record",
+    detail:
+      "Someone who has shipped production systems and will spend time on my fundamentals.",
+  },
+  {
+    title: "Async, written communication",
+    detail:
+      "PRs and design notes that explain the reasoning — I write to be reviewed, not to look busy.",
+  },
+];
+
 export interface TimelineItem {
   period: string;
   title: string;

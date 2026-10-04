@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Github, Mail } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig, heroProof } from "@/config/site";
 
 const codeSnippet = `// what I focus on
 type Engineer = {
@@ -49,12 +49,20 @@ export function Hero() {
           <h1 className="mt-2 font-display text-[clamp(3rem,8vw,6rem)] font-extrabold leading-[1.02] tracking-tight">
             Ronney Nelson
           </h1>
-          <p className="mt-3 font-display text-xl font-semibold tracking-tight text-slate-500 dark:text-slate-300 sm:text-2xl">
-            Junior Software Developer
+          <p className="mt-3 font-display text-lg font-semibold tracking-tight text-slate-600 dark:text-slate-300 sm:text-xl">
+            Junior Software Developer — full-stack, TypeScript
           </p>
+          {/*
+            Sharpened value prop: lead with the OUTCOME and the specialism, not a
+            generic "I build reliable software" claim a recruiter already saw twice.
+          */}
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600 dark:text-slate-400">
-            I build reliable, user-focused software that turns complex problems into simple
-            experiences — with clean APIs, thoughtful data models, and tested, deployable code.
+            I ship full-stack web apps that survive contact with real users —{" "}
+            <strong className="font-semibold text-slate-900 dark:text-slate-100">
+              typed APIs, indexed Postgres schemas, and tests that run in CI
+            </strong>
+            . Give me an ambiguous problem and I&apos;ll scope it, build it in small
+            reviewable steps, and explain the trade-offs I made along the way.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
@@ -78,18 +86,27 @@ export function Hero() {
               <Mail size={16} /> Let&apos;s Talk
             </Link>
           </div>
+          {/* Proof over adjectives: each row is a claim a reviewer can verify. */}
           <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-slate-200 pt-6 text-sm dark:border-slate-700/60">
-            {[
-              ["Focus", "Full-stack web apps"],
-              ["Strength", "APIs + databases"],
-              ["Approach", "Ship, test, iterate"],
-            ].map(([term, value]) => (
-              <div key={term} className="min-h-[3.5rem]">
-                <dt className="font-mono text-xs uppercase tracking-wider text-slate-400">{term}</dt>
-                <dd className="mt-1 font-medium">{value}</dd>
+            {heroProof.map((item) => (
+              <div key={item.label} className="min-h-[5.5rem]">
+                <dt className="font-mono text-xs uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                  {item.label}
+                </dt>
+                <dd className="mt-1 font-medium leading-snug">{item.value}</dd>
+                <dd className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                  {item.detail}
+                </dd>
               </div>
             ))}
           </dl>
+          <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
+            Prefer to skim first?{" "}
+            <Link href="#resume" className="link-underline font-medium text-blue-600 dark:text-blue-400">
+              Grab the one-page resume
+            </Link>{" "}
+            — it points back to live code for every claim.
+          </p>
         </motion.div>
 
         <motion.div {...rise(0.12)} className="hidden lg:block">

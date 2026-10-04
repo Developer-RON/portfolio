@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Download, FileText, ArrowRight } from "lucide-react";
 import { Container, SectionHeading } from "@/components/ui/section";
+import { capabilities } from "@/data/capabilities";
 
 export function Resume() {
   return (
@@ -43,15 +44,22 @@ export function Resume() {
                 <p className="text-slate-500">Junior Software Developer</p>
               </div>
               <div className="border-t border-slate-100 pt-3 dark:border-slate-700/60">
-                <p className="font-mono text-xs uppercase tracking-wider text-slate-400">Skills</p>
-                <p className="mt-1 text-slate-600 dark:text-slate-400">
-                  TypeScript · React/Next.js · Node.js · PostgreSQL · Docker · Testing
-                </p>
+                <p className="font-mono text-xs uppercase tracking-wider text-slate-400">Capabilities</p>
+                <ul className="mt-1 space-y-1 text-slate-600 dark:text-slate-400">
+                  {capabilities.slice(0, 3).map((cap) => (
+                    <li key={cap.title} className="leading-relaxed">
+                      <span className="font-medium text-slate-700 dark:text-slate-300">
+                        {cap.title}:
+                      </span>{" "}
+                      {cap.skills.join(", ")}
+                    </li>
+                  ))}
+                </ul>
               </div>
               <div className="border-t border-slate-100 pt-3 dark:border-slate-700/60">
                 <p className="font-mono text-xs uppercase tracking-wider text-slate-400">Projects</p>
                 <p className="mt-1 text-slate-600 dark:text-slate-400">
-                  4 featured builds — see Projects section for code & demos.
+                  4 projects in progress — see Projects sections for code & demos.
                 </p>
               </div>
               <p className="rounded-md bg-blue-50 p-3 text-xs text-blue-800 dark:bg-blue-950/50 dark:text-blue-300">
